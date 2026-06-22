@@ -1,4 +1,4 @@
-import './ui/global.css';
+import '@/app/ui/global.css';
 import { Inter, Lusitana } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'] });
