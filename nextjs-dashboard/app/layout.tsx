@@ -1,8 +1,6 @@
 import '@/app/ui/global.css';
-import { Inter, Lusitana } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
-export const lusitana = Lusitana({ subsets: ['latin'], weight: '400' });
+import {inter, lusitana} from '@/app/ui/fonts';
 
 export default function RootLayout({
   children,
