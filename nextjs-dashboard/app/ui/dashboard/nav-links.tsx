@@ -20,6 +20,7 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  { name: 'AI Chat demo', href: '/dashboard/antropic', icon: DocumentDuplicateIcon },
 ];
 
 export default function NavLinks() {
