@@ -2,6 +2,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 
+// Chat message example: 
 // Runs only on the server, so ANTHROPIC_API_KEY never reaches the browser.
 const client = new Anthropic();
 
