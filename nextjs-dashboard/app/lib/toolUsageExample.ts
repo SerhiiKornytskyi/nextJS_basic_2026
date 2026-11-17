@@ -134,6 +134,7 @@ const weatherTool = betaZodTool({
 export async function askWeatherZod(question: BetaMessage): Promise<BetaMessage> {
   const runner = client.beta.messages.toolRunner({
     model: "claude-sonnet-5",
+    thinking: {"type": "adaptive", "display": "summarized"},  // summarized = return the reasoning text
     max_tokens: 1024,
     messages: [
       {

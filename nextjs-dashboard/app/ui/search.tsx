@@ -12,8 +12,10 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
 
     const onSearchChange = useDebounceCallback((term: string) => {
-      // Handle search input change
       const params = new URLSearchParams(searchParams);
+      // Updating url
+      const pathname = usePathname();
+      const { replace } = useRouter();
      
       if (term) {
         params.set('query', term);
