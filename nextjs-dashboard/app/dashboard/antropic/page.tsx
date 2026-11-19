@@ -3,6 +3,7 @@
 import { lusitana } from '@/app/ui/fonts';
 import { useState, useTransition } from 'react';
 import { askChatbot } from '@/app/lib/chatbot';
+import { testAgentHandling } from '@/app/lib/managedAgent';
 import { askWeather, askWeatherZod } from '@/app/lib/toolUsageExample'; // FIX: runTool is no longer exported; askWeather is the Server Action
 
 export default function Page() {
@@ -18,13 +19,14 @@ export default function Page() {
 
   // FIX: the tool call used to run directly in the component body, so it fired on EVERY render.
   // Now it only runs when the button is clicked.
-  const handleWeatherQuery = () => {
+  const handleManagedAgentQuery = () => {
     startTransition(async () => {
-      setAnswer(
-        await askWeather(
-          "What's the weather in Krakow for 4 days ? and which tool is used ?"
-        )
-      );
+      setAnswer('');
+      try {
+        setAnswer(await testAgentHandling(query));
+      } catch (error) {
+        setAnswer(`Error: ${error instanceof Error ? error.message : String(error)}`);
+      }
     });
   };
 
@@ -56,8 +58,8 @@ export default function Page() {
         <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" onClick={handleChatbotQuery} disabled={isPending}>
           {isPending ? 'Thinking...' : 'Ask about'}
         </button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onClick={handleWeatherQuery} disabled={isPending}>
-          Ask weather (tools, hardcoded tool select)
+        <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onClick={handleManagedAgentQuery} disabled={isPending || !query.trim()}>
+          Ask managed agent
         </button>
         <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2" onClick={handleWeatherQueryZod} disabled={isPending}>
           Ask weather (ZOD)
